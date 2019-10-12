@@ -21,6 +21,10 @@
 
   <body>
     <%= render "layouts/navbar" %>
-    <%= yield %>
+
+    <div class="container-fluid" id="main">
+      <%= render "layouts/flash_messages" %>
+      <%= yield %>
+    </div>
   </body>
 </html>
