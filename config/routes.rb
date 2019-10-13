@@ -1,5 +1,13 @@
+class Subdomain
+  def self.matches?(request)
+    request.subdomain.present? && request.subdomain != "www"
+  end
+end
+
 Rails.application.routes.draw do
-  resources :workplaces, only: [:new, :create]
   root "home#index"
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  resources :workplaces, only: [:new, :create]
+
+  constraints Subdomain do
+  end
 end
