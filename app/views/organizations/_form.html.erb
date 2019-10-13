@@ -1,0 +1,19 @@
+<div class="row justify-content-center">
+  <div class="col-sm-12 col-md-8">
+    <div class="card">
+      <div class="card-body">
+        <%= form_for @organization, url: organizations_path, method: :post do |f| %>
+          <%= render 'shared/error_messages', object: @organization %>
+          <div class="form-group">
+            <%= f.label :subdomain, "Organization Name" %>
+            <%= f.text_field :subdomain, class: "form-control", autofocus: true, required: true, placeholder: "Organization Name", maxlength: 100 %>
+          </div>
+
+          </br>
+
+          <%= f.submit class: "btn btn-primary btn-xs-block", data: { disable_with: "Saving..." } %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
