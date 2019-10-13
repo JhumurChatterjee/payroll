@@ -67,7 +67,6 @@ Metrics/AbcSize:
   Max: 18
 # Enabled: false
 
-
 #Enforces use of %i or %I for an array of symbols, which is not required
 Style/SymbolArray:
   Enabled: false

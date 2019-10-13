@@ -11,3 +11,10 @@ body {
 .flash-message {
   margin-bottom: 15px;
 }
+
+@media (max-width: 575px) {
+  .btn-xs-block {
+    display: block;
+    width: 100%;
+  }
+}
