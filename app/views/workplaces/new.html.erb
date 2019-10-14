@@ -13,7 +13,7 @@
 
           <div class="form-group">
             <%= f.label :name, "Workplace Name" %>
-            <%= f.text_field :name, class: "form-control", autofocus: true, required: true, placeholder: "Workplace Name", maxlength: 50, minlength: 6, pattern: "[a-z0-9-]+" %>
+            <%= f.text_field :name, class: "form-control", autofocus: true, required: true, placeholder: "Workplace Name", maxlength: 50, minlength: 3, pattern: "[a-z0-9-]+" %>
             <small id="workplace_name" class="form-text text-muted">Workplace name should contain only letters, hyphen & numbers.</small>
           </div>
 
