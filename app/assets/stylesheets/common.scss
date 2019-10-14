@@ -12,9 +12,41 @@ body {
   margin-bottom: 15px;
 }
 
+.table-header {
+  margin-bottom: 15px;
+}
+
+.details-card {
+  margin-bottom: 10px;
+
+  .details-row {
+    margin-bottom: 10px;
+
+    label, span {
+      display: block;
+    }
+
+    label {
+      font-size: 12px;
+      margin-bottom: 0;
+      color: #656565;
+    }
+  }
+
+  .card-header span {
+    display: inline-block;
+    margin-bottom: 0;
+  }
+}
+
 @media (max-width: 575px) {
   .btn-xs-block {
     display: block;
     width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .delete-btn {
+    margin-top: 30px;
   }
 }

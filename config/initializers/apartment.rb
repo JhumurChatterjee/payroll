@@ -4,7 +4,7 @@
 #
 # require 'apartment/elevators/generic'
 # require 'apartment/elevators/domain'
-require 'apartment/elevators/subdomain'
+require "apartment/elevators/subdomain"
 # require 'apartment/elevators/first_subdomain'
 # require 'apartment/elevators/host'
 
@@ -12,17 +12,17 @@ require 'apartment/elevators/subdomain'
 # Apartment Configuration
 #
 Apartment.configure do |config|
-
   # Add any models that you do not want to be multi-tenanted, but remain in the global (public) namespace.
   # A typical example would be a Customer or Tenant model that stores each Tenant's information.
   #
-  config.excluded_models = %w{ Workplace }
+  config.excluded_models = %w[Workplace]
 
   # In order to migrate all of your Tenants you need to provide a list of Tenant names to Apartment.
   # You can make this dynamic by providing a Proc object to be called on migrations.
   # This object should yield either:
   # - an array of strings representing each Tenant name.
-  # - a hash which keys are tenant names, and values custom db config (must contain all key/values required in database.yml)
+  # - a hash which keys are tenant names, and values custom db config
+  # (must contain all key/values required in database.yml)
   #
   # config.tenant_names = lambda{ Customer.pluck(:tenant_name) }
   # config.tenant_names = ['tenant1', 'tenant2']
@@ -48,7 +48,7 @@ Apartment.configure do |config|
   #   end
   # end
   #
-  config.tenant_names = lambda { Workplace.pluck :name }
+  config.tenant_names = -> { Workplace.pluck :name }
 
   # PostgreSQL:
   #   Specifies whether to use PostgreSQL schemas or create a new database per Tenant.
@@ -107,3 +107,5 @@ end
 Rails.application.config.middleware.use Apartment::Elevators::Subdomain
 # Rails.application.config.middleware.use Apartment::Elevators::FirstSubdomain
 # Rails.application.config.middleware.use Apartment::Elevators::Host
+
+Apartment::Elevators::Subdomain.excluded_subdomains = ["www"]

@@ -9,5 +9,6 @@ Rails.application.routes.draw do
   resources :workplaces, only: [:new, :create]
 
   constraints Subdomain do
+    resources :departments
   end
 end
