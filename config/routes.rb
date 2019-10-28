@@ -14,6 +14,9 @@ Rails.application.routes.draw do
   end
 
   constraints Subdomain do
-    resources :departments
+    namespace :admin do
+      get 'dashboard', to: 'admin#dashboard'
+      resources :departments
+    end
   end
 end
