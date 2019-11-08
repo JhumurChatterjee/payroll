@@ -1,0 +1,20 @@
+<% provide(:title, "Sale History") %>
+
+<div class="row justify-content-centre">
+  <h4 class = "col s12">Sale History ID - <%= @booking.id %></h4>
+
+  <% if @versions.empty? %>
+    <h3 class="center">There is no history for this sale.</h3>
+  <% else %>
+    <div class="col s6">
+      <ul class="collapsible">
+        <% @versions.each do |version| %>
+          <li>
+            <div class="collapsible-header"><i class="material-icons">filter_drama</i><%= version.changeset %></div>
+            <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+          </li>
+        </ul>
+      <% end %>
+    </div>
+  <% end %>
+</div>

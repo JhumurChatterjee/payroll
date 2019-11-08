@@ -5,6 +5,12 @@ class Subdomain
 end
 
 Rails.application.routes.draw do
+  resources :documents do
+    get :history
+  end
+    resources :bookings do
+      get :history
+    end
   root "home#index"
   resources :workplaces, only: [:new, :create]
 

@@ -6,6 +6,8 @@ ruby "2.6.3"
 gem "apartment", github: "PalashBera/apartment", branch: "development"
 gem "bootsnap", ">= 1.4.2", require: false
 gem "jbuilder", "~> 2.7"
+gem "paper_trail", "~> 10.3", ">= 10.3.1"
+gem "paper_trail-association_tracking", "~> 2.0"
 gem "pg", ">= 0.18", "< 2.0"
 gem "puma", "~> 3.11"
 gem "rails", "~> 6.0.0"

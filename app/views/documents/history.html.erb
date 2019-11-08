@@ -1,0 +1,26 @@
+<% provide(:title, "Sale History") %>
+
+<div class="row justify-content-centre">
+  <h4 class = "col s12">Sale History ID - <%= @document.id %></h4>
+
+  <% if @versions.empty? %>
+    <h3 class="center">There is no history for this sale.</h3>
+  <% else %>
+    <div class="col s6">
+      <ul class="collapsible">
+        <% @versions.each do |version| %>
+          <li>
+            <div class="collapsible-header"><i class="material-icons">filter_drama</i><%= version.changeset	 %></div>
+            <% d= @document.booking.versions.last.reify(has_many: true) %>
+            <%= d.booking_identity %>
+            <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+          </li>
+        </ul>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+
+
+PaperTrail::Version.where(item_type: 'Document').joins(:version_associations).where(version_associations: { foreign_key_name: 'booking_id', foreign_key_id: booking.id }).order('versions.created_at desc')
