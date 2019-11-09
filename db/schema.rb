@@ -10,15 +10,123 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_13_182012) do
+ActiveRecord::Schema.define(version: 2019_11_09_174712) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "addresses", force: :cascade do |t|
+    t.string "street_name", limit: 100, null: false
+    t.string "pin_number", limit: 100, null: false
+    t.bigint "city_id", null: false
+    t.bigint "state_id", null: false
+    t.bigint "country_id", null: false
+    t.bigint "employee_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["city_id"], name: "index_addresses_on_city_id"
+    t.index ["country_id"], name: "index_addresses_on_country_id"
+    t.index ["employee_id"], name: "index_addresses_on_employee_id"
+    t.index ["state_id"], name: "index_addresses_on_state_id"
+  end
+
+  create_table "cities", force: :cascade do |t|
+    t.string "name", limit: 100, null: false
+    t.bigint "state_id"
+    t.index ["state_id"], name: "index_cities_on_state_id"
+  end
+
+  create_table "countries", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "departments", force: :cascade do |t|
     t.string "name", limit: 100, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "documents", force: :cascade do |t|
+    t.string "name"
+    t.string "attachment"
+    t.bigint "employee_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["employee_id"], name: "index_documents_on_employee_id"
+  end
+
+  create_table "employees", force: :cascade do |t|
+    t.string "name", limit: 100, null: false
+    t.string "email", limit: 100, null: false
+    t.string "phone", limit: 100
+    t.date "date_of_birth", null: false
+    t.date "date_of_joining", null: false
+    t.bigint "created_by_id"
+    t.bigint "updated_by_id"
+    t.bigint "department_id"
+    t.bigint "workplace_id"
+    t.bigint "status_id"
+    t.bigint "leave_type_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["department_id"], name: "index_employees_on_department_id"
+    t.index ["leave_type_id"], name: "index_employees_on_leave_type_id"
+    t.index ["status_id"], name: "index_employees_on_status_id"
+    t.index ["workplace_id"], name: "index_employees_on_workplace_id"
+  end
+
+  create_table "leave_types", force: :cascade do |t|
+    t.string "type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "payslips", force: :cascade do |t|
+    t.string "bank_name", limit: 100, null: false
+    t.string "bank_account", limit: 100, null: false
+    t.integer "working_days", null: false
+    t.decimal "leave_without_pay", precision: 3, scale: 1, default: "0.0"
+    t.integer "month"
+    t.integer "year"
+    t.decimal "basic", precision: 10, scale: 2, default: "0.0"
+    t.decimal "house_rent_allowance", precision: 10, scale: 2, default: "0.0"
+    t.decimal "medical_allowance", precision: 10, scale: 2, default: "0.0"
+    t.decimal "special_allowance", precision: 10, scale: 2, default: "0.0"
+    t.decimal "conveyance_allowance", precision: 10, scale: 2, default: "0.0"
+    t.decimal "gross_salary", precision: 10, scale: 2
+    t.decimal "net_salary", precision: 10, scale: 2
+    t.decimal "leave_with_pay", precision: 3, scale: 1, default: "0.0"
+    t.integer "created_by"
+    t.integer "updated_by"
+    t.bigint "employee_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["employee_id"], name: "index_payslips_on_employee_id"
+  end
+
+  create_table "states", force: :cascade do |t|
+    t.string "name"
+    t.bigint "country_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["country_id"], name: "index_states_on_country_id"
+  end
+
+  create_table "statuses", force: :cascade do |t|
+    t.string "type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "tax_types", force: :cascade do |t|
+    t.string "type", limit: 100, null: false
+    t.string "number", limit: 100, null: false
+    t.bigint "employee_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["employee_id"], name: "index_tax_types_on_employee_id"
   end
 
   create_table "workplaces", force: :cascade do |t|
@@ -28,4 +136,17 @@ ActiveRecord::Schema.define(version: 2019_10_13_182012) do
     t.index ["name"], name: "index_workplaces_on_name"
   end
 
+  add_foreign_key "addresses", "cities"
+  add_foreign_key "addresses", "countries"
+  add_foreign_key "addresses", "employees"
+  add_foreign_key "addresses", "states"
+  add_foreign_key "cities", "states"
+  add_foreign_key "documents", "employees"
+  add_foreign_key "employees", "departments"
+  add_foreign_key "employees", "leave_types"
+  add_foreign_key "employees", "statuses"
+  add_foreign_key "employees", "workplaces"
+  add_foreign_key "payslips", "employees"
+  add_foreign_key "states", "countries"
+  add_foreign_key "tax_types", "employees"
 end
