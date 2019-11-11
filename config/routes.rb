@@ -6,9 +6,17 @@ end
 
 Rails.application.routes.draw do
   root "home#index"
-  resources :workplaces, only: [:new, :create]
+  resources :workplaces, only: [:new, :create], constraints: { subdomain: "www" } do
+    member do
+      get :create_admin
+      post :create_admin_user
+    end
+  end
 
   constraints Subdomain do
-    resources :departments
+    namespace :admin do
+      get 'dashboard', to: 'admin#dashboard'
+      resources :departments
+    end
   end
 end

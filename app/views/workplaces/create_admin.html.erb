@@ -1,0 +1,45 @@
+<% provide(:title, "Admin") %>
+<% provide(:button_text, "Create") %>
+
+<div class="row justify-content-center">
+  <div class="col-sm-12">
+    <h3 class="text-center">Create Admin</h3>
+  </div>
+
+  <div class="col-xs-12 col-sm-10 col-md-9 col-lg-8 col-xl-6">
+    <div class="card">
+      <div class="card-body">
+        <%= form_for @user, url:create_admin_user_workplace_url, method: :post do |f| %>
+          <%= render 'shared/error_messages', object: @user %>
+
+          <div class="form-group">
+            <%= f.label :name, "Name" %>
+            <%= f.text_field :name, class: "form-control", autofocus: true, required: true, placeholder: "Name", maxlength: 250, minlength: 6 %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :email, "Email" %>
+            <%= f.email_field :email, class: "form-control", required: true, placeholder: "Email", maxlength: 250, minlength: 6 %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :phone, "Phone" %>
+            <%= f.text_field :phone, class: "form-control", placeholder: "Phone", maxlength: 10, minlength: 10 %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :password, "Password" %>
+            <%= f.password_field :password, class: "form-control", required: true, placeholder: "Password", maxlength: 6, minlength: 6 %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :password_confirmation, "Password" %>
+            <%= f.password_field :password_confirmation, class: "form-control", required: true, placeholder: "Password Confirmation", maxlength: 6, minlength: 6 %>
+          </div>
+
+          <%= f.submit yield(:button_text), class: "btn btn-primary btn-xs-block", data: { disable_with: "Saving..." } %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
