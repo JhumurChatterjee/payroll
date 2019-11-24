@@ -15,21 +15,6 @@ ActiveRecord::Schema.define(version: 2019_11_09_174712) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "addresses", force: :cascade do |t|
-    t.string "street_name", limit: 100, null: false
-    t.string "pin_number", limit: 100, null: false
-    t.bigint "city_id", null: false
-    t.bigint "state_id", null: false
-    t.bigint "country_id", null: false
-    t.bigint "employee_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["city_id"], name: "index_addresses_on_city_id"
-    t.index ["country_id"], name: "index_addresses_on_country_id"
-    t.index ["employee_id"], name: "index_addresses_on_employee_id"
-    t.index ["state_id"], name: "index_addresses_on_state_id"
-  end
-
   create_table "cities", force: :cascade do |t|
     t.string "name", limit: 100, null: false
     t.bigint "state_id"
@@ -65,20 +50,36 @@ ActiveRecord::Schema.define(version: 2019_11_09_174712) do
     t.date "date_of_joining", null: false
     t.bigint "created_by_id"
     t.bigint "updated_by_id"
+    t.string "street_address1", limit: 100, null: false
+    t.string "street_address2", limit: 100, null: false
+    t.string "pin_number1", limit: 100, null: false
+    t.string "pin_number2", limit: 100, null: false
+    t.bigint "city1_id"
+    t.bigint "state1_id"
+    t.bigint "country1_id"
+    t.bigint "city2_id"
+    t.bigint "state2_id"
+    t.bigint "country2_id"
     t.bigint "department_id"
     t.bigint "workplace_id"
     t.bigint "status_id"
     t.bigint "leave_type_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["city1_id"], name: "index_employees_on_city1_id"
+    t.index ["city2_id"], name: "index_employees_on_city2_id"
+    t.index ["country1_id"], name: "index_employees_on_country1_id"
+    t.index ["country2_id"], name: "index_employees_on_country2_id"
     t.index ["department_id"], name: "index_employees_on_department_id"
     t.index ["leave_type_id"], name: "index_employees_on_leave_type_id"
+    t.index ["state1_id"], name: "index_employees_on_state1_id"
+    t.index ["state2_id"], name: "index_employees_on_state2_id"
     t.index ["status_id"], name: "index_employees_on_status_id"
     t.index ["workplace_id"], name: "index_employees_on_workplace_id"
   end
 
   create_table "leave_types", force: :cascade do |t|
-    t.string "type"
+    t.string "leave_type", limit: 100, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -115,7 +116,7 @@ ActiveRecord::Schema.define(version: 2019_11_09_174712) do
   end
 
   create_table "statuses", force: :cascade do |t|
-    t.string "type"
+    t.string "status_type", limit: 100, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -136,10 +137,6 @@ ActiveRecord::Schema.define(version: 2019_11_09_174712) do
     t.index ["name"], name: "index_workplaces_on_name"
   end
 
-  add_foreign_key "addresses", "cities"
-  add_foreign_key "addresses", "countries"
-  add_foreign_key "addresses", "employees"
-  add_foreign_key "addresses", "states"
   add_foreign_key "cities", "states"
   add_foreign_key "documents", "employees"
   add_foreign_key "employees", "departments"

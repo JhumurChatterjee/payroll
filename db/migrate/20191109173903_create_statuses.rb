@@ -1,7 +1,7 @@
 class CreateStatuses < ActiveRecord::Migration[6.0]
   def change
     create_table :statuses do |t|
-      t.string :type
+      t.string :status_type, null: false, limit: 100
 
       t.timestamps
     end

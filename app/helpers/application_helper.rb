@@ -22,4 +22,20 @@ module ApplicationHelper
       ""
     end
   end
+
+  def states_selection
+    State.all.map{ |s| [s.id, s.name] }
+  end
+
+  def cities_selection
+    City.all.map{ |c| [c.id, c.name] }
+  end
+
+  def statuses_selection
+    Status.all.map{ |s| [s.status_type, s.id] }
+  end
+
+  def countries_selection
+    Country.all.map{ |c| [c.id, c.name] }
+  end
 end

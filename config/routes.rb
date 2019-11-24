@@ -10,5 +10,8 @@ Rails.application.routes.draw do
 
   constraints Subdomain do
     resources :departments
+    resources :employees
+    resources :leave_types
+    resources :statuses
   end
 end

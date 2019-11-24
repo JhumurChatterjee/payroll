@@ -1,0 +1,97 @@
+<div class="col-xs-12 col-sm-10 col-md-8 col-lg-7 col-xl-6">
+  <div class="card">
+    <div class="card-body">
+      <%= form_for @employee do |f| %>
+        <%= render 'shared/error_messages', object: @employee %>
+
+        <div class="form-group">
+          <%= f.label :name, "Name" %>
+          <%= f.text_field :name, class: "form-control", autofocus: true, required: true, placeholder: "Name", maxlength: 100 %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :email, "Email" %>
+          <%= f.email_field :email, class: "form-control", required: true, placeholder: "Email", maxlength: 100 %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :phone, "Phone" %>
+          <%= f.text_field :phone, class: "form-control", required: true, placeholder: "Phone", maxlength: 100, minlength: 10 %>
+        </div>
+
+        
+        <div class="form-group">
+          <%= f.label :date_of_joining, "Date of Joining" %>
+          <%= f.date_field :date_of_joining, class: "form-control datepicker", required: true, placeholder: "Joining Date" %>
+        </div>
+
+        <div>Parmanent Address</div>
+        <div class="form-group">
+          <%= f.label :street_address1, "Street" %>
+          <%= f.text_field :street_address1, class: "form-control", required: true, placeholder: "Street" %>
+        </div>
+ 
+        <div class="form-group">
+          <%= f.label :date_of_birth, "DOB" %>
+          <%= f.text_field :date_of_birth, class: "form-control datepicker", required: true, placeholder: "Street" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :state1_id, "State" %>
+          <%= f.select :state1_id, states_selection,  class: "form-control", required: true, placeholder: "State" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :country1_id, "Country" %>
+          <%= f.select :country1_id, countries_selection,  class: "form-control", required: true, placeholder: "Counrty" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :pin_number1, "Pin Number" %>
+          <%= f.text_field :pin_number1, class: "form-control", required: true, placeholder: "Pin Number" %>
+        </div>
+
+        <div>Current Address</div>
+        <div class="form-group">
+          <%= f.label :street_address2, "Street" %>
+          <%= f.text_field :street_address2, class: "form-control", required: true, placeholder: "Street" %>
+        </div>
+
+        
+        <div class="form-group">
+          <%= f.label :state2_id, "State" %>
+          <%= f.select :state2_id, states_selection,  class: "form-control", required: true, placeholder: "State" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :country2_id, "Country" %>
+          <%= f.select :country2_id, countries_selection,  class: "form-control", required: true, placeholder: "Country" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :pin_number2, "Pin Number" %>
+          <%= f.text_field :pin_number2, class: "form-control", required: true, placeholder: "Pin Number" %>
+        </div>
+
+        <div class="form-row">
+          <div class="col-xs-12 order-2 order-sm-1 col-sm-3">
+            <% if f.object.id %>
+              <%= link_to "Delete", employee_path(@employee), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger btn-xs-block delete-btn" %>
+            <% end %>
+          </div>
+
+          <div class="col-xs-12 text-right order-1 order-sm-2 col-sm-9">
+            <%= link_to "Cancel", employees_path, class: "btn btn-light btn-xs-block" %>
+            <%= f.submit yield(:button_text), class: "btn btn-primary btn-xs-block", data: { disable_with: "Saving..." } %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function(){
+    $('.datepicker').datepicker();
+  });
+</script>

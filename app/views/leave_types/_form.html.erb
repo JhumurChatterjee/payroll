@@ -1,0 +1,29 @@
+<div class="col-xs-12 col-sm-10 col-md-8 col-lg-7 col-xl-4">
+  <div class="card">
+    <div class="card-body">
+      <%= form_for @leave_type do |f| %>
+        <%= render 'shared/error_messages', object: @leave_type %>
+
+        <div class="form-group">
+          <%= f.label :name, "Type" %>
+          <%= f.text_field :leave_type, class: "form-control", autofocus: true, required: true, placeholder: "Type", maxlength: 100 %>
+        </div>
+
+        </br>
+
+        <div class="form-row">
+          <div class="col-xs-12 order-2 order-sm-1 col-sm-3">
+            <% if f.object.id %>
+              <%= link_to "Delete", leave_type_path(@leave_type), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger btn-xs-block delete-btn" %>
+            <% end %>
+          </div>
+
+          <div class="col-xs-12 text-right order-1 order-sm-2 col-sm-9">
+            <%= link_to "Cancel", leave_types_path, class: "btn btn-light btn-xs-block" %>
+            <%= f.submit yield(:button_text), class: "btn btn-primary btn-xs-block", data: { disable_with: "Saving..." } %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

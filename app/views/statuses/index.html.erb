@@ -1,0 +1,33 @@
+<% provide(:title, "Statuses") %>
+
+<section class="table-header">
+  <div class="row">
+    <div class="col-sm-12 col-md-6">
+      <h3>Statuses List</h3>
+    </div>
+
+    <div class="col-sm-12 col-md-6 text-md-right">
+      <%= link_to "Add New", new_status_path, class: "btn btn-primary", title: "Add new status" %>
+    </div>
+  </div>
+</section>
+
+<table class="table table-hover" width="100%">
+  <thead class="thead-light">
+    <tr>
+      <th>ID</th>
+      <th>Status Type</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @statuses.each do |status| %>
+      <tr>
+        <td><%= link_to status.id, status_path(status) %></td>
+        <td><%= status.status_type %></td>
+        <td><%= link_to "Edit", edit_status_path(status) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
